@@ -1,0 +1,6 @@
+fine-tuning/tmp
+fine-tuning/distilgpt2-bandung-hf-final
+fine-tuning/distilgpt2-bandung.gguf
+inferance-server/__pycache__
+inferance-server/deepseek-r11.5b.gguf
+inferance-server/distilgpt2-bandung.gguf

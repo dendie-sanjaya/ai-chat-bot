@@ -1,0 +1,1 @@
+FROM ./distilgpt2-bandung.gguf
