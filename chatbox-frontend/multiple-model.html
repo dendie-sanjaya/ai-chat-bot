@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbox dengan Pemilihan Model</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+        }
+        #model-selection {
+            margin-bottom: 10px;
+        }
+        #textbox {
+            border: 1px solid #ccc;
+            height: 500px;
+            width: 98%;
+            overflow-y: auto;
+            padding: 10px;
+            margin-bottom: 10px;
+            white-space: pre-wrap;
+        }
+        #input-container {
+            display: flex;
+        }
+        #message-input {
+            flex-grow: 1;
+            padding: 8px;
+        }
+        #send-button {
+            padding: 8px 15px;
+        }
+        #stop-button {
+            padding: 8px 15px;
+            margin-left: 5px;
+            disabled: true;
+        }
+        #clear-button {
+            padding: 8px 15px;
+            margin-left: 5px;
+        }
+        .user-message {
+            color: blue;
+            margin-bottom: 5px;
+            padding: 5px;
+            border-radius: 5px;
+            background-color: #e0e0ff;
+        }
+        .deepseek-response, .granite-response {
+            white-space: pre-wrap;
+            margin-bottom: 5px;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        .deepseek-response {
+            color: green;
+            background-color: #e0f7fa;
+        }
+        .granite-response {
+            color: purple;
+            background-color: #f0e6fa;
+        }
+    </style>
+</head>
+<body>
+    <div id="model-selection">
+        <label for="model-select">Pilih Model:</label>
+        <select id="model-select">
+            <option value="deepseek-r1:1.5b">deepseek-r1:1.5b</option>
+            <option value="granite3-guardian:latest">granite3-guardian</option>
+        </select>
+    </div>
+    <div id="textbox">
+        <div>Selamat datang! Pilih model dan ajukan pertanyaan Anda.</div>
+    </div>
+    <div id="input-container">
+        <input type="text" id="message-input" placeholder="Ketik pesan Anda...">
+        <button id="send-button">Kirim</button>
+        <button id="stop-button" disabled>Stop</button>
+        <button id="clear-button">Clear History Context</button>
+    </div>
+    <script>
+        const modelSelect = document.getElementById('model-select');
+        const textbox = document.getElementById('textbox');
+        const messageInput = document.getElementById('message-input');
+        const sendButton = document.getElementById('send-button');
+        const stopButton = document.getElementById('stop-button');
+        const clearButton = document.getElementById('clear-button');
+        const ollamaApiUrl = 'http://localhost:11434/api/chat';
+        let currentResponse = '';
+        let isFetching = false;
+        let controller = null;
+        let chatHistory = [];
+        let currentModel = modelSelect.value;
+
+        modelSelect.addEventListener('change', function() {
+            currentModel = this.value;
+            console.log('Model dipilih:', currentModel);
+        });
+
+        sendButton.addEventListener('click', sendMessage);
+        messageInput.addEventListener('keypress', function (event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        stopButton.addEventListener('click', stopMessage);
+        clearButton.addEventListener('click', clearChatHistory);
+
+        async function stopMessage() {
+            if (controller) {
+                controller.abort();
+                isFetching = false;
+                sendButton.disabled = false;
+                stopButton.disabled = true;
+                appendMessage('(Permintaan dihentikan oleh pengguna)', currentModel);
+                controller = null;
+            }
+        }
+
+        async function sendMessage() {
+            const userMessage = messageInput.value.trim();
+            if (!userMessage || isFetching) return;
+
+            appendUserMessage(userMessage);
+            chatHistory.push({ role: 'user', content: userMessage });
+            messageInput.value = '';
+            currentResponse = '';
+            const responseDiv = document.createElement('div');
+            responseDiv.classList.add(currentModel.startsWith('deepseek') ? 'deepseek-response' : 'granite-response');
+            textbox.appendChild(responseDiv);
+
+            const requestBody = {
+                model: currentModel,
+                messages: chatHistory,
+                stream: true
+            };
+
+            isFetching = true;
+            sendButton.disabled = true;
+            stopButton.disabled = false;
+            controller = new AbortController();
+            const signal = controller.signal;
+
+            try {
+                const response = await fetch(ollamaApiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestBody),
+                    signal: signal
+                });
+
+                if (!response.ok) {
+                    isFetching = false;
+                    sendButton.disabled = false;
+                    stopButton.disabled = true;
+                    controller = null;
+                    const error = await response.json();
+                    appendMessage(`Error: ${error.message || response.statusText}`, currentModel);
+                    return;
+                }
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let buffer = '';
+                let fullResponse = '';
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) {
+                        break;
+                    }
+
+                    buffer += decoder.decode(value);
+                    let lastNewlineIndex = buffer.lastIndexOf('\n');
+                    let completeLines = buffer.substring(0, lastNewlineIndex);
+                    buffer = buffer.substring(lastNewlineIndex + 1);
+
+                    completeLines.split('\n').forEach(line => {
+                        if (line.trim()) {
+                            try {
+                                const json = JSON.parse(line);
+                                if (json.message && json.message.content) {
+                                    let cleanedContent = json.message.content.replace(/<think>/g, '');
+                                    cleanedContent = cleanedContent.replace(/<\/think>/g, '');
+                                    cleanedContent = cleanedContent.replace(/\\/g, '');
+                                    cleanedContent = cleanedContent.replace(/[\[\]]/g, '');
+                                    cleanedContent = cleanedContent.replace(/\\boxed\{(\d+)\}/g, '$1');
+                                    cleanedContent = cleanedContent.replace(/\(boxed\{(\d+)\}\)/g, '$1');
+                                    currentResponse += cleanedContent;
+                                    responseDiv.innerHTML = `<b>${currentModel.startsWith('deepseek') ? 'Deepseek' : 'Granite'} (${new Date().toLocaleString()}):</b> ${currentResponse}`;
+                                    textbox.scrollTop = textbox.scrollHeight;
+                                    fullResponse += cleanedContent;
+                                }
+                            } catch (error) {
+                                console.error("Error parsing JSON:", error, line);
+                            }
+                        }
+                    });
+                }
+
+                chatHistory.push({ role: 'assistant', content: fullResponse });
+                isFetching = false;
+                sendButton.disabled = false;
+                stopButton.disabled = true;
+                controller = null;
+                currentResponse = '';
+
+            } catch (error) {
+                if (error.name === 'AbortError') {
+                    console.log('Permintaan dihentikan.');
+                } else {
+                    appendMessage(`Error: ${error.message}`, currentModel);
+                }
+                isFetching = false;
+                sendButton.disabled = false;
+                stopButton.disabled = true;
+                controller = null;
+            }
+        }
+
+        function appendUserMessage(message) {
+            const userDiv = document.createElement('div');
+            userDiv.classList.add('user-message');
+            const now = new Date();
+            const timestamp = now.toLocaleString();
+            userDiv.textContent = `Pengguna (${timestamp}): ${message}`;
+            textbox.appendChild(userDiv);
+            textbox.scrollTop = textbox.scrollHeight;
+        }
+
+        function appendMessage(message, modelName) {
+            const responseDiv = document.createElement('div');
+            responseDiv.classList.add(modelName.startsWith('deepseek') ? 'deepseek-response' : 'granite-response');
+            responseDiv.innerHTML = `<b>${modelName.startsWith('deepseek') ? 'Deepseek' : 'Granite'} (${new Date().toLocaleString()}):</b> ${message}`;
+            textbox.appendChild(responseDiv);
+            textbox.scrollTop = textbox.scrollHeight;
+        }
+
+        function clearChatHistory() {
+            chatHistory = [];
+            currentResponse = '';
+            textbox.innerHTML = '<div>Selamat datang! Pilih model dan ajukan pertanyaan Anda.</div>';
+            sendButton.disabled = false;
+            stopButton.disabled = true;
+            messageInput.value = '';
+            isFetching = false;
+            controller = null;
+        }
+    </script>
+</body>
+</html>

@@ -8,7 +8,7 @@ app = FastAPI()
 
 # Ganti dengan jalur sebenarnya ke model GGUF Anda
 # MODEL_PATH = "deepseek-r11.5b.gguf"
-MODEL_PATH = "distilgpt2-bandung.gguf"
+MODEL_PATH = "/mnt/d/ai-chat-bot/inferance-server/distilgpt2-bandung.gguf"
 
 try:
     llm = Llama(model_path=MODEL_PATH)
@@ -43,4 +43,4 @@ async def generate_text_stream(request: GenerationRequest):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8181)

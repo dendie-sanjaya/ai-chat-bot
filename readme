@@ -1,7 +1,90 @@
+
+1. LLM 
+
+LLM, atau Large Language Model, adalah jenis model ML yang dilatih menggunakan sejumlah besar teks untuk memahami dan menghasilkan bahasa alami.
+
+Contohnya adalah GPT-3 dan Llama2, Gemini, Copilot, Meta AI, yang digunakan untuk tugas seperti penerjemahan, penulisan, dan percakapan. LLM bekerja dengan cara mempelajari korelasi dan struktur bahasa dari data pelatihan, sehingga dapat menghasilkan teks yang koheren dan relevan dengan konteks
+
+Contoh cara deploy LLM di server private adalah dapat melihat contoh seperti ini 
+
+https://github.com/dendie-sanjaya/ai-ml-llm-ollama
+
+
+2. Arsitekur AI Chat 
+
+Berikut ini adalah arsitekur AI Chatbot
+
+
+(import image)
+
+
+3. Install Inferance Ollama Platform 
+
+install ollama sebagai inferance AI-MML, ollama akan berperaan sebaga inferance dan menyediakan openAPI yang bisa 
+di akses frontend 
+
+cara installasi bila melihat disini -> https://github.com/dendie-sanjaya/ai-ml-llm-ollama
+
+apabila instalasi ollama berhasil dan dapat di run, makaakan tampak sperti ini 
+
+ollama start 
+
+1.png 
+
+
+4. Import model llm
+
+
+import model llm, dalam contoh kalai menggunakan deepsee-r1
+
+2.png
+3.png
+4.png
+
+
+run deepseek di ollama 
+
+ollama run deepseek-r1:1.5b
+
+5.opng
+
+
+
+5. Test Prompt ke Ollama via API
+
+Test PromptAI ke Deepseek via postman, ambila running hasilnya akan seperti ini 
+
+
+
+6. Siapakan Dataset 
+
+Dataset adalah data yang sudah bersih atau benar, semakin banyak datanya 
+dan berishkan, maka akan semakin baik untuk training machine learning menghasil jawaban yg baik 
+
+8.png
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------
+2. 
+
+
 ollama run llama2:7b
 
 
 Bagaimana Cara Mendapatkan File GGUF?
+
+
+
+
+
+
 
 Mendapatkan file GGUF biasanya melibatkan satu atau beberapa langkah berikut, tergantung pada dari mana model LLM Anda berasal:
 

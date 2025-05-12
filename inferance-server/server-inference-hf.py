@@ -2,11 +2,21 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
+from fastapi.middleware.cors import CORSMiddleware # Import CORSMiddleware
 
 app = FastAPI()
 
+# Tambahkan middleware CORS di sini
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
+)
+
 # --- Konfigurasi Model Hugging Face ---
-MODEL_NAME = "/mnt/d/ai-chat-bot/tuning/distilgpt2-hf/"  # Ganti dengan nama model Hugging Face yang ingin Anda gunakan
+MODEL_NAME = "/mnt/d/ai-chat-bot/fine-tuning/distilgpt2-bandung-hf-final/"  # Ganti dengan nama model Hugging Face yang ingin Anda gunakan
 TOKENIZER = None
 MODEL = None
 

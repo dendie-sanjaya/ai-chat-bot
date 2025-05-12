@@ -1,90 +1,113 @@
-import pandas as pd
-from transformers import AutoTokenizer, AutoModelForCausalLM, TrainingArguments, Trainer
-from torch.utils.data import Dataset
-import torch
+from fastapi import FastAPI, HTTPException
+from fastapi.responses import StreamingResponse, JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from llama_cpp import Llama
+from transformers import pipeline
+import asyncio
 
-# 1. Path ke dataset CSV Anda
-csv_path = "/mnt/d/ai-chat-bot/dataset/dataset-bandung.csv"
-model_name = "distilgpt2"  # Mengganti gpt2 dengan distilgpt2
-output_dir = "./distilgpt2-bandung-hf"
-max_length = 512  # Perpanjang max_length
+app = FastAPI()
 
-# 2. Muat tokenizer dan model untuk generasi
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-if tokenizer.pad_token is None:
-    tokenizer.add_special_tokens({'pad_token': tokenizer.eos_token})
-model = AutoModelForCausalLM.from_pretrained(model_name)
-model.resize_token_embeddings(len(tokenizer))
+# Tambahkan middleware CORS di sini
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-# 3. Baca dataset CSV
+# Ganti dengan jalur sebenarnya ke model GGUF Anda
+MODEL_PATH = "/mnt/d/ai-chat-bot/inferance-server/distilgpt2-bandung.gguf"
+
+# Load model Llama untuk endpoint /generate
 try:
-    df = pd.read_csv(csv_path, delimiter=';', header=None, names=['pertanyaan', 'jawaban'])
-    questions = df['pertanyaan'].tolist()
-    answers = df['jawaban'].tolist()
+    llm = Llama(model_path=MODEL_PATH)
 except Exception as e:
-    print(f"Error membaca CSV: {e}")
-    exit()
+    print(f"Gagal memuat model Llama: {e}")
 
-# 4. Buat Dataset untuk Question Answering (Generatif)
-class QADataset(Dataset):
-    def __init__(self, questions, answers, tokenizer, max_length):
-        self.questions = questions
-        self.answers = answers
-        self.tokenizer = tokenizer
-        self.max_length = max_length
+# Load model DistilGPT2
+try:
+    generator = pipeline('text-generation', model='distilgpt2')
+except Exception as e:
+    print(f"Gagal memuat model DistilGPT2: {e}")
 
-    def __len__(self):
-        return len(self.questions)
+class GenerationRequest(BaseModel):
+    prompt: str
+    max_tokens: int = 50
+    temperature: float = 0.8
+    top_p: float = 0.9
 
-    def __getitem__(self, idx):
-        question = self.questions[idx]
-        answer = self.answers[idx]
+async def generate_tokens(request: GenerationRequest, model_type: str = "llama"):
+    try:
+        if model_type == "llama":
+            output = llm.create_completion(
+                prompt=request.prompt,
+                max_tokens=request.max_tokens,
+                temperature=request.temperature,
+                top_p=request.top_p,
+                stream=True,
+                echo=False
+            )
+            for item in output:
+                token = item["choices"][0]["text"]
+                yield f"data: {token}\n\n"
+                await asyncio.sleep(0.001)
+        elif model_type == "distilgpt2":
+            generated_text = generator(
+                request.prompt,
+                max_length=request.max_tokens,
+                temperature=request.temperature,
+                top_p=request.top_p,
+                do_sample=True,
+                num_return_sequences=1,
+            )[0]['generated_text']
+            for char in generated_text:
+                yield f"data: {char}\n\n"
+                await asyncio.sleep(0.001)
+        else:
+            raise ValueError(f"Model type '{model_type}' not supported.")
+    except Exception as e:
+        yield f"data: error: {str(e)}\n\n"
 
-        # Format prompt untuk QA generatif
-        prompt = question + tokenizer.eos_token
-        inputs = self.tokenizer(prompt, truncation=True, padding='max_length', max_length=self.max_length, return_tensors='pt')
+@app.post("/generate_stream")
+async def generate_text_stream(request: GenerationRequest, model: str = "llama"):
+    """
+    Endpoint ini menggunakan StreamingResponse untuk menghasilkan teks secara bertahap.
+    Argumen 'model' menentukan model mana yang akan digunakan ("llama" atau "distilgpt2").
+    """
+    if model not in ["llama", "distilgpt2"]:
+        raise HTTPException(status_code=400, detail="Parameter 'model' harus 'llama' atau 'distilgpt2'.")
+    return StreamingResponse(generate_tokens(request, model_type=model), media_type="text/event-stream")
 
-        # Tokenisasi jawaban sebagai target
-        labels = self.tokenizer(answer, truncation=True, padding='max_length', max_length=self.max_length, return_tensors='pt')['input_ids']
+@app.post("/generate")
+async def generate_text(request: GenerationRequest):
+    """
+    Endpoint ini menghasilkan teks menggunakan model Llama dan mengembalikan respons JSON.
+    """
+    try:
+        output = llm.create_completion(
+            prompt=request.prompt,
+            max_tokens=request.max_tokens,
+            temperature=request.temperature,
+            top_p=request.top_p,
+            stream=False,
+            echo=False,
+        )
+        generated_text = output["choices"][0]["text"]
+        return JSONResponse({"generated_text": generated_text})
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error generating text: {e}")
 
-        # Penting: Ganti padding token di labels dengan -100 agar tidak dihitung dalam loss
-        labels[labels == self.tokenizer.pad_token_id] = -100
+@app.post("/generate_transformers")
+async def generate_text_transformers(request: GenerationRequest):
+    """
+    Endpoint ini menghasilkan teks menggunakan model DistilGPT2 dan mengembalikan respons JSON.
+    """
+    return StreamingResponse(generate_tokens(request, model_type="distilgpt2"), media_type="text/event-stream")
 
-        return {
-            'input_ids': inputs['input_ids'].squeeze(),
-            'attention_mask': inputs['attention_mask'].squeeze(),
-            'labels': labels.squeeze()
-        }
 
-dataset = QADataset(questions, answers, tokenizer, max_length)
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8181)
 
-# 5. Training Arguments
-training_args = TrainingArguments(
-    output_dir=output_dir,
-    per_device_train_batch_size=4,  # Sesuaikan dengan GPU Anda
-    gradient_accumulation_steps=8,
-    learning_rate=1e-4,  # Sesuaikan learning rate
-    num_train_epochs=5,  # Tambah jumlah epoch
-    fp16=True,
-    logging_dir="./logs-qa",
-    logging_steps=10,
-    save_steps=500,
-    save_total_limit=2,
-    push_to_hub=False,
-)
-
-# 6. Trainer
-trainer = Trainer(
-    model=model,
-    train_dataset=dataset,
-    args=training_args,
-    tokenizer=tokenizer,
-)
-
-# 7. Train
-trainer.train()
-
-# 8. Simpan model
-trainer.save_model(f"{output_dir}-final")
-tokenizer.save_pretrained(f"{output_dir}-final")
-print(f"\nFine-tuning selesai! Model disimpan di {output_dir}-final")
