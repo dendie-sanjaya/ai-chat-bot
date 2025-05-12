@@ -1,3 +1,15 @@
+# Machine Learning - LLM 
+
+Machine Learning (ML) adalah cabang dari kecerdasan buatan (AI) yang mempelajari pola dan membuat prediksi 
+berdasarkan data. 
+
+LLM, atau Large Language Model, adalah jenis model ML yang dilatih menggunakan sejumlah besar teks untuk 
+memahami dan menghasilkan bahasa alami. 
+
+Contohnya adalah GPT-3 dan Llama2, Gemini, Copilot, Meta AI,  yang digunakan untuk tugas seperti penerjemahan, penulisan, dan percakapan. 
+LLM bekerja dengan cara mempelajari korelasi dan struktur bahasa dari data pelatihan, 
+sehingga dapat menghasilkan teks yang koheren dan relevan dengan konteks. 
+
 
 1. LLM 
 
