@@ -1,4 +1,4 @@
-#Machine Learning - LLM 
+# 1. Machine Learning - LLM 
 
 Machine Learning (ML) adalah cabang dari kecerdasan buatan (AI) yang mempelajari pola dan membuat prediksi 
 berdasarkan data. 
@@ -10,59 +10,56 @@ Contohnya adalah GPT-3 dan Llama2, Gemini, Copilot, Meta AI,  yang digunakan unt
 LLM bekerja dengan cara mempelajari korelasi dan struktur bahasa dari data pelatihan, 
 sehingga dapat menghasilkan teks yang koheren dan relevan dengan konteks. 
 
-
-1. LLM 
-
 LLM, atau Large Language Model, adalah jenis model ML yang dilatih menggunakan sejumlah besar teks untuk memahami dan menghasilkan bahasa alami.
 
-Contohnya adalah GPT-3 dan Llama2, Gemini, Copilot, Meta AI, yang digunakan untuk tugas seperti penerjemahan, penulisan, dan percakapan. LLM bekerja dengan cara mempelajari korelasi dan struktur bahasa dari data pelatihan, sehingga dapat menghasilkan teks yang koheren dan relevan dengan konteks
-
-Contoh cara deploy LLM di server private adalah dapat melihat contoh seperti ini 
+Contoh untuk deploy LLM di server private adalah dapat melihat contoh seperti ini 
 
 https://github.com/dendie-sanjaya/ai-ml-llm-ollama
 
 
-2. Arsitekur AI Chat 
+# 2. Arsitekur AI Chat 
 
 Berikut ini adalah arsitekur AI Chatbot
 
+![ss](./design/architecture.png)
 
-(import image)
 
+# 3. Install Inferance Ollama Platform 
 
-3. Install Inferance Ollama Platform 
-
-install ollama sebagai inferance AI-MML, ollama akan berperaan sebaga inferance dan menyediakan openAPI yang bisa 
+Sebagai server AI-MI-LLM dapat menggunakan ollama sebagai inferance AI-MML, ollama akan berperaan sebaga inferance dan menyediakan openAPI yang bisa 
 di akses frontend 
 
 cara installasi bila melihat disini -> https://github.com/dendie-sanjaya/ai-ml-llm-ollama
 
-apabila instalasi ollama berhasil dan dapat di run, makaakan tampak sperti ini 
+Apabila instalasi ollama berhasil dan dapat di run, makaakan tampak sperti ini 
 
-ollama start 
+<pre><code>ollama start</code>pre></pre>code> 
 
-1.png 
-
-
-4. Import model llm
+![ss](./screenshoot/1.png)
 
 
-import model llm, dalam contoh kalai menggunakan deepsee-r1
+# 4. Import model LLM
 
-2.png
-3.png
-4.png
+Setelah Ollama dapa melakuan import model LLM yang mengambil langsung dari repository model ollama , dalam contoh kali ini model yg digunakan menggunakan deepseek-r1
 
+![ss](./screenshoot/2.png)
 
-run deepseek di ollama 
+![ss](./screenshoot/3.png)
 
-ollama run deepseek-r1:1.5b
-
-5.opng
+![ss](./screenshoot/4.png)
 
 
+# 5. Run Deepseek Model LLM
 
-5. Test Prompt ke Ollama via API
+Untuk mengaktifkan Model Deepseek, dapat menggunakan command seperti ini 
+
+<pre><code>ollama run deepseek-r1:1.5b</code></pre>
+
+![ss](./screenshoot/5.png)
+
+
+
+#6. Test Prompt ke Ollama via API
 
 Test PromptAI ke Deepseek via postman, ambila running hasilnya akan seperti ini 
 
