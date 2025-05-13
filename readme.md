@@ -16,6 +16,7 @@ Contoh untuk deploy LLM di server private adalah dapat melihat contoh seperti in
 
 https://github.com/dendie-sanjaya/ai-ml-llm-ollama
 
+Pada source code ini akan dijelaskan cara membuat chatbot dengan backen AI-ML-LLM 
 
 # 2. Arsitekur AI Chat 
 
@@ -57,37 +58,42 @@ Untuk mengaktifkan Model Deepseek, dapat menggunakan command seperti ini
 
 ![ss](./screenshoot/5.png)
 
+# 6. Test Prompt ke Ollama via API
+
+Untuk melakukan test untuk memberikan  Prompt AI ke Deepseek dapat lakukan via postman, apabila API nya running hasilnya akan seperti ini 
+
+![ss](./screenshoot/6.png)
+
+![ss](./screenshoot/7.png)
+
+# 7. Siapkan Dataset 
+
+Dataset adalah data yang sudah bersih atau benar, semakin banyak datanya dengan kualitas yang bagus, maka akan semakin baik untuk training machine learning yang akan menghasil jawaban yg baik, berikut ini adalah contoh dalam membuat 
+dataset di format csv untuk keperluan tujuan membuat chatbot
+
+![ss](./screenshoot/8.png)
 
 
-#6. Test Prompt ke Ollama via API
+# 8. Fine Tuning 
 
-Test PromptAI ke Deepseek via postman, ambila running hasilnya akan seperti ini 
-
-
-
-6. Siapakan Dataset 
-
-Dataset adalah data yang sudah bersih atau benar, semakin banyak datanya 
-dan berishkan, maka akan semakin baik untuk training machine learning menghasil jawaban yg baik 
-
-8.png
+Fine tuning adalah proses training mechine learning dengan memberikan pengetahuan baru yang hasil akan digabungkan dengan model induk nya 
 
 
+# 9. Install Python3 
 
+Untuk melakukan Fine tuning adalah proses training mechine learning dengan memberikan pengetahuan baru yang hasil akan digabungkan dengan model induk nya 
 
+<pre><code>apt install python3.10-venv
+python3 -m venv venv
+source /venv/bin/activate
+pip install datasets transformers peft accelerate
+pip install peft</code></pre> 
 
 
 
 
 
--------------------------------------------------------------------------------------
-2. 
 
-
-ollama run llama2:7b
-
-
-Bagaimana Cara Mendapatkan File GGUF?
 
 
 
