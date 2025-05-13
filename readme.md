@@ -89,6 +89,39 @@ source /venv/bin/activate
 pip install datasets transformers peft accelerate
 pip install peft</code></pre> 
 
+![ss](./screenshoot/11.png)
+
+<pre><code>root@Dev01:/mnt/d/ai-chat-bot/tuning# python3 --version
+Python 3.10.12</code></pre>            
+
+
+# 10. Download Model LLM  
+
+Cari model dengan nama yang mirip dengan model LLM yg akan menjadi induk model fine-tune, dan perhatikan ekstensi filenya (.gguf) ,  misalkan Hugging Face Hub  Platform Hugging Face Hub (https://huggingface.co/) adalah sumber utama untuk model LLM. Seringkali, komunitas membuat dan mengunggah versi model dalam format GGUF, sebagai contoh  model DeepSeek-R1:1.5B 
+
+![ss](./screenshoot/9.png)
+
+![ss](./screenshoot/10.png)
+
+
+# 11. Fine Tuning Training 
+
+Lakukan finetuning dengan mengabung model fo 
+
+
+![ss](./screenshoot/14.png)
+
+
+
+
+#  Demo Video 
+
+1. Video Demo Chatbox dengan satu model LLM menggunakan DeepSeek-R1:1.5B
+
+[![Teks Alternatif untuk Gambar](URL_GAMBAR_PRATINJAU)](./screenshoot/video-recording-chat-bot.mp4)
+
+3. Video Demo Chatbox dengan tiga model LLM menggunakan DeepSeek-R1:1.5B, distilgpt2, distilgpt2-bandung (model hasil finetuning)
+![ss](./screenshoot/video-recording-chat-bot-multiple-model)
 
 
 
@@ -99,51 +132,7 @@ pip install peft</code></pre>
 
 
 
-
-
-Mendapatkan file GGUF biasanya melibatkan satu atau beberapa langkah berikut, tergantung pada dari mana model LLM Anda berasal:
-
-    Mengunduh Model yang Sudah Dikonversi ke GGUF: Cara termudah adalah jika model LLM yang ingin Anda gunakan (termasuk versi yang sudah Anda fine-tune) sudah tersedia dalam format GGUF.
-        Hugging Face Hub: Platform Hugging Face Hub (https://huggingface.co/) adalah sumber utama untuk model LLM. Seringkali, komunitas membuat dan mengunggah versi model dalam format GGUF. Anda bisa mencari model DeepSeek-R1:1.5B yang sudah di-fine-tune dan melihat apakah ada file dengan ekstensi .gguf di bagian "Files and versions".
-        Repositori llama.cpp: Proyek llama.cpp (https://github.com/ggerganov/llama.cpp) adalah alat populer untuk bekerja dengan model LLM di CPU. Repositori ini sering menyediakan skrip dan bahkan file GGUF yang sudah dikonversi untuk berbagai model.
-
-Tips saat mencari file GGUF:
-
-    Cari model dengan nama yang mirip dengan model yang Anda fine-tune, dan perhatikan ekstensi filenya (.gguf).
-    Perhatikan informasi tentang kuantisasi (misalnya, Q4_K_M, Q8_0). Kuantisasi yang lebih rendah menghasilkan ukuran file yang lebih kecil tetapi mungkin dengan sedikit penurunan kualitas. Pilih yang sesuai dengan kebutuhan dan sumber daya Anda.
-    Baca deskripsi dan komentar untuk memastikan file GGUF tersebut memang berasal dari model yang benar dan berfungsi dengan baik.
-
-
-
-
-root@Dev01:/mnt/d/ai-chat-bot/tuning# python3 --version
-Python 3.10.12            
-
-
-apt install python3.10-venv
-python3 -m venv venv
-source /venv/bin/activate
-pip install datasets transformers peft accelerate
-pip install peft 
-
-python3
-
-
-Clone Repositori llama.cpp (jika belum):
-Buka terminal Anda dan jalankan perintah berikut untuk mengunduh kode sumber llama.cpp dari GitHub:
-Bash
-
-
-Compile LLama CPP
-------------------
-git clone https://github.com/ggerganov/llama.cpp
-cd llama.cpp-master
-mkdir build
-cd build
-cmake ../
-make
-
-
+-----------------------------
 python3 convert_hf_to_gguf.py --model-type gpt2 --model-dir /mnt/d/ai-chat-bot/tuning/distilgpt2-bandung.pth --outfile /mnt/d/ai-chat-bot/tuning/distilgpt2-bandung.gguf
 
 python3 convert_hf_to_gguf_update.py --model-type gpt2 --model-dir /mnt/d/ai-chat-bot/tuning/distilgpt2-bandung-generation-final --outfile /mnt/d/ai-chat-bot/tuning/distilgpt2-bandung.gguf
@@ -175,4 +164,41 @@ pip install uvicorn
 
 uvicorn server-inference-read-hf:app --reload
 
+
+
+
+
+
+
+
+
+
+--------------------------------------
+di buat 
+---------------------------------------
+
+        Repositori llama.cpp: Proyek llama.cpp (https://github.com/ggerganov/llama.cpp) adalah alat populer untuk bekerja dengan model LLM di CPU. Repositori ini sering menyediakan skrip dan bahkan file GGUF yang sudah dikonversi untuk berbagai model.
+
+Tips saat mencari file GGUF:
+
+    Cari model dengan nama yang mirip dengan model yang Anda fine-tune, dan perhatikan ekstensi filenya (.gguf).
+    Perhatikan informasi tentang kuantisasi (misalnya, Q4_K_M, Q8_0). Kuantisasi yang lebih rendah menghasilkan ukuran file yang lebih kecil tetapi mungkin dengan sedikit penurunan kualitas. Pilih yang sesuai dengan kebutuhan dan sumber daya Anda.
+    Baca deskripsi dan komentar untuk memastikan file GGUF tersebut memang berasal dari model yang benar daan berfungsi dengan baik.
+
+
+
+
+Clone Repositori llama.cpp (jika belum):
+Buka terminal Anda dan jalankan perintah berikut untuk mengunduh kode sumber llama.cpp dari GitHub:
+Bash
+
+
+Compile LLama CPP
+------------------
+git clone https://github.com/ggerganov/llama.cpp
+cd llama.cpp-master
+mkdir build
+cd build
+cmake ../
+make
 
