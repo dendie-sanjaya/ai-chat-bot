@@ -27,15 +27,12 @@ Chatbot AI ini  program komputer yang dirancang untuk mensimulasikan percakapan 
 
 # 1. Machine Learning - LLM 
 
-Machine Learning (ML) adalah cabang dari kecerdasan buatan (AI) yang mempelajari pola dan membuat prediksi 
-berdasarkan data. 
+Machine Learning (ML) adalah cabang dari kecerdasan buatan (AI) yang mempelajari pola dan membuat prediksi berdasarkan data. 
 
-LLM, atau Large Language Model, adalah jenis model ML yang dilatih menggunakan sejumlah besar teks untuk 
-memahami dan menghasilkan bahasa alami. 
+LLM, atau Large Language Model, adalah jenis model ML yang dilatih menggunakan sejumlah besar teks untuk memahami dan menghasilkan bahasa alami. 
 
 Contohnya adalah GPT-3 dan Llama2, Gemini, Copilot, Meta AI,  yang digunakan untuk tugas seperti penerjemahan, penulisan, dan percakapan. 
-LLM bekerja dengan cara mempelajari korelasi dan struktur bahasa dari data pelatihan, 
-sehingga dapat menghasilkan teks yang koheren dan relevan dengan konteks. 
+LLM bekerja dengan cara mempelajari korelasi dan struktur bahasa dari data pelatihan, sehingga dapat menghasilkan teks yang koheren dan relevan dengan konteks. 
 
 LLM, atau Large Language Model, adalah jenis model ML yang dilatih menggunakan sejumlah besar teks untuk memahami dan menghasilkan bahasa alami.
 
@@ -54,7 +51,7 @@ Berikut ini adalah arsitekur AI Chatbot
 
 # 3. Install Inferance Ollama Platform 
 
-Sebagai server AI-MI-LLM dapat menggunakan ollama sebagai inferance AI-MML, ollama akan berperaan sebaga inferance dan menyediakan openAPI yang bisa 
+Sebagai server AI-MI-LLM dapat menggunakan ollama sebagai inferance AI-MML, ollama akan berperan sebaga inferance dan menyediakan openAPI yang bisa 
 di akses frontend 
 
 cara installasi bila melihat disini -> https://github.com/dendie-sanjaya/ai-ml-llm-ollama
@@ -87,7 +84,7 @@ Untuk mengaktifkan Model Deepseek, dapat menggunakan command seperti ini
 
 # 6. Test Prompt ke Ollama via API
 
-Untuk melakukan test untuk memberikan  Prompt AI ke Deepseek dapat lakukan via postman, apabila API nya running hasilnya akan seperti ini 
+Untuk melakukan test untuk memberikan Prompt AI ke Deepseek dapat lakukan via postman, apabila API nya running hasilnya akan seperti ini 
 
 ![ss](./screenshoot/6.png)
 
@@ -95,20 +92,19 @@ Untuk melakukan test untuk memberikan  Prompt AI ke Deepseek dapat lakukan via p
 
 # 7. Siapkan Dataset 
 
-Dataset adalah data yang sudah bersih atau benar, semakin banyak datanya dengan kualitas yang bagus, maka akan semakin baik untuk training machine learning yang akan menghasil jawaban yg baik, berikut ini adalah contoh dalam membuat 
-dataset di format csv untuk keperluan tujuan membuat chatbot
+Dataset adalah data yang sudah bersih atau benar, semakin banyak datanya dengan kualitas yang bagus, maka akan semakin baik untuk training machine learning yang akan menghasil jawaban yg baik, berikut ini adalah contoh dalam membuat dataset di format csv untuk keperluan tujuan membuat chatbot
 
 ![ss](./screenshoot/8.png)
 
 
 # 8. Fine Tuning 
 
-Fine tuning adalah proses training mechine learning dengan memberikan pengetahuan baru yang hasil akan digabungkan dengan model induk nya 
+Fine tuning adalah proses training mechine learning dengan memberikan pengetahuan baru yang hasil nya akan digabungkan dengan model llm induk nya 
 
 
 # 9. Install Python3 
 
-Untuk melakukan Fine tuning adalah proses training mechine learning dengan memberikan pengetahuan baru yang hasil akan digabungkan dengan model induk nya 
+Untuk melakukan Fine tuning adalah proses training mechine learning dengan memberikan pengetahuan baru yang hasil nya akan digabungkan dengan model induk nya 
 
 <pre><code>apt install python3.10-venv
 python3 -m venv venv
@@ -124,7 +120,7 @@ Python 3.10.12</code></pre>
 
 # 10. Download Model LLM  
 
-Cari model dengan nama yang mirip dengan model LLM yg akan menjadi induk model fine-tune, dan perhatikan ekstensi filenya (.gguf) ,  misalkan Hugging Face Hub  Platform Hugging Face Hub (https://huggingface.co/) adalah sumber utama untuk model LLM. Seringkali, komunitas membuat dan mengunggah versi model dalam format GGUF, sebagai contoh  model DeepSeek-R1:1.5B, distilgpt2  
+Cari model dengan nama yang mirip dengan model LLM yg akan menjadi induk model fine-tune, dan perhatikan ekstensi filenya (.gguf),  misalkan Hugging Face Hub  Platform Hugging Face Hub (https://huggingface.co/) adalah sumber utama untuk model LLM. Seringkali, komunitas membuat dan mengunggah versi model dalam format GGUF, sebagai contoh  model DeepSeek-R1:1.5B, distilgpt2  
 
 ![ss](./screenshoot/9.png)
 
@@ -142,15 +138,15 @@ File script fine-tuning nya dapat diakses di ![distilgpt2-finetuning.py](./fine-
 
 ![ss](./screenshoot/14.png)
 
-Hasil dari proses finetuning ini akan menghasil sebuah model baru dengan format safetensors (format model LLM dari Hugging Face)
+Hasil dari proses finetuning ini akan menghasilkan sebuah model baru dengan format safetensors (format model LLM dari Hugging Face)
 
 
 # 12. Run Model Hasil Fine Tuning di Inferance Server Python
 
-Server inference adalah adalah sebuah server yg menjadi penghubung antar enduser untuk memberikan prompt atau pertanyaan dan menampikan jawaban, server inference biasanya sudah dilengkapi 
+Server inference adalah adalah sebuah server yg menjadi penghubung antar frontend untuk memberikan prompt atau pertanyaan dan menampikan jawaban, server inference biasanya sudah dilengkapi 
 dengan JSON API untuk sebagai cara untuk bertukar data atau informasi
 
-Pada contoh ini yang digunakan adalah membuat server inference menggunakan python, instal lebih dulu depedensinya  
+Pada contoh ini yang digunakan adalah membuat server inference menggunakan python, install lebih dulu depedensinya  
 
 <pre><code>pip install llama-cpp-python
 pip install fastapi
@@ -169,8 +165,7 @@ Apabila API server inference di akses via Postmant akan tampak seperti dibawah i
 
 # 13. Run Model format GGUF di Inferance Server Ollama
 
-Server inference Ollama dapat di import banyak model LLM, dan dari sisi frontend dapat memilih nya untuk untuk menggunakan LLM yang mana,
-berikut ini adalah contoh import model.gguf 
+Server inference Ollama dapat di import banyak model LLM, dan dari sisi frontend dapat memilih  untuk untuk menggunakan LLM yang mana, berikut ini adalah contoh import model.gguf 
 
 <pre><code>ollama create distilgpt2-bandung -f /mnt/d/ai-chat-bot/tuning/Modelfile</code></pre> 
 
