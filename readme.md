@@ -97,7 +97,7 @@ Python 3.10.12</code></pre>
 
 # 10. Download Model LLM  
 
-Cari model dengan nama yang mirip dengan model LLM yg akan menjadi induk model fine-tune, dan perhatikan ekstensi filenya (.gguf) ,  misalkan Hugging Face Hub  Platform Hugging Face Hub (https://huggingface.co/) adalah sumber utama untuk model LLM. Seringkali, komunitas membuat dan mengunggah versi model dalam format GGUF, sebagai contoh  model DeepSeek-R1:1.5B 
+Cari model dengan nama yang mirip dengan model LLM yg akan menjadi induk model fine-tune, dan perhatikan ekstensi filenya (.gguf) ,  misalkan Hugging Face Hub  Platform Hugging Face Hub (https://huggingface.co/) adalah sumber utama untuk model LLM. Seringkali, komunitas membuat dan mengunggah versi model dalam format GGUF, sebagai contoh  model DeepSeek-R1:1.5B, distilgpt2  
 
 ![ss](./screenshoot/9.png)
 
@@ -106,11 +106,16 @@ Cari model dengan nama yang mirip dengan model LLM yg akan menjadi induk model f
 
 # 11. Fine Tuning Training 
 
-Lakukan finetuning dengan mengabung model fo 
+Lakukan finetuning dengan menggabungkan model LLM induk sebagai contoh di kode program ini menggunakan distilgpt2.gguf dan menggunakan dataset file csv (seperti di contoh ini menggunakan dataset-bandung
+![Dataset Kota Bandung](./dataset/dataset-bandung.csv)
 
+File script fine-tuning nya dapat diakses di ![distilgpt2-finetuning.py](./fine-tuning/distilgpt2-finetuning.py)
+
+<pre><code>python3 distilgpt2-finetuning.py</code></pre> 
 
 ![ss](./screenshoot/14.png)
 
+Hasil dari proses finetuning ini akan menghasil sebuah model baru dengan format safetensors (format model LLM dari Hugging Face)
 
 
 
