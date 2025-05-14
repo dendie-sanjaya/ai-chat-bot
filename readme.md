@@ -2,6 +2,15 @@
 
 Chatbot AI ini  program komputer yang dirancang untuk mensimulasikan percakapan dengan manusia melalui teks atau suara. dengan memanfaatkan teknologi kecerdasan buatan (AI), terutama pemrosesan bahasa alami (NLP) dan machine learning (ML) d, untuk memahami pertanyaan pengguna, memberikan jawaban yang releva dengan backendnya menggunakan  AI-ML-LLM (seperti chatgpt, deepseek, gemini) 
 
+#  Demo Video 
+
+1. Video Demo Chatbox dengan satu model LLM menggunakan DeepSeek-R1:1.5B
+[![Video Demo Chatbot](URL_GAMBAR_PRATINJAU)](./screenshoot/video-recording-chat-bot.mp4)
+
+2. Video Demo Chatbox dengan tiga model LLM menggunakan DeepSeek-R1:1.5B, distilgpt2, distilgpt2-bandung (model hasil finetuning)
+![Video Demo Chatbot Multi Model LLM](./screenshoot/video-recording-chat-bot-multiple-model.mp4)
+
+
 # Daftar Isi
 
 1.  [Machine Learning - LLM](#1-machine-learning---llm)
@@ -160,7 +169,7 @@ Server Inference Python dapat membaca model fromat gguf
 
 Apabila API server inference di akses via Postmant akan tampak seperti dibawah ini 
 
-![ss](./screenshoot/12. python-server .png)
+![ss](./screenshoot/12. python-server.png)
 
 
 # 13. Run Model format GGUF di Inferance Server Ollama
@@ -174,13 +183,4 @@ Server inference Ollama dapat di import banyak model LLM, dan dari sisi frontend
 Berikut ini adalah daftar model 
 
 ![ss](./screenshoot/19-import-to-ollama-2.png)
-
-#  Demo Video 
-
-1. Video Demo Chatbox dengan satu model LLM menggunakan DeepSeek-R1:1.5B
-[![Video Demo Chatbot](URL_GAMBAR_PRATINJAU)](./screenshoot/video-recording-chat-bot.mp4)
-
-2. Video Demo Chatbox dengan tiga model LLM menggunakan DeepSeek-R1:1.5B, distilgpt2, distilgpt2-bandung (model hasil finetuning)
-![Video Demo Chatbot Multi Model LLM](./screenshoot/video-recording-chat-bot-multiple-model.mp4)
-
 
