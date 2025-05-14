@@ -1,3 +1,30 @@
+# Membuat Chactbot AI
+
+Chatbot AI ini  program komputer yang dirancang untuk mensimulasikan percakapan dengan manusia melalui teks atau suara. dengan memanfaatkan teknologi kecerdasan buatan (AI), terutama pemrosesan bahasa alami (NLP) dan machine learning (ML) d, untuk memahami pertanyaan pengguna, memberikan jawaban yang releva dengan backendnya menggunakan  AI-ML-LLM (seperti chatgpt, deepseek, gemini) 
+
+# Daftar Isi
+
+1.  [Machine Learning - LLM](#1-machine-learning---llm)
+2.  [Arsitekur AI Chat](#2-arsitektur-ai-chat)
+3.  [Install Inferance Ollama Platform](#3-install-inferance-ollama-platform)
+4.  [Import model LLM](#4-import-model-llm)
+5.  [Run Deepseek Model LLM](#5-run-deepseek-model-llm)
+6.  [Test Prompt ke Ollama via API](#6-test-prompt-ke-ollama-via-api)
+7.  [Siapkan Dataset](#7-siapkan-dataset)
+8.  [Fine Tuning](#8-fine-tuning)
+9.  [Install Python3](#9-install-python3)
+10. [Download Model LLM](#10-download-model-llm)
+11. [Fine Tuning Training](#11-fine-tuning-training)
+12. [Run Model Hasil Fine Tuning di Inferance Server Python](#12-run-model-hasil-fine-tuning-di-inferance-server-python)
+13. [Run Model format GGUF di Inferance Server Ollama](#13-run-model-format-gguf-di-inferance-server-ollama)
+14. [Demo Video](#-demo-video)
+    1. [Video Demo Chatbox dengan satu model LLM menggunakan DeepSeek-R1:1.5B](#1-video-demo-chatbox-dengan-satu-model-llm-menggunakan-deepseek-r115b)
+    2. [Video Demo Chatbox dengan tiga model LLM menggunakan DeepSeek-R1:1.5B, distilgpt2, distilgpt2-bandung (model hasil finetuning)](#2-video-demo-chatbox-dengan-tiga-model-llm-menggunakan-deepseek-r115b-distilgpt2-distilgpt2-bandung-model-hasil-finetuning)
+
+
+
+
+
 # 1. Machine Learning - LLM 
 
 Machine Learning (ML) adalah cabang dari kecerdasan buatan (AI) yang mempelajari pola dan membuat prediksi 
