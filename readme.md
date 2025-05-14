@@ -58,7 +58,7 @@ cara installasi bila melihat disini -> https://github.com/dendie-sanjaya/ai-ml-l
 
 Apabila instalasi ollama berhasil dan dapat di run, makaakan tampak sperti ini 
 
-<pre><code>ollama start</pre>code> 
+<pre><code>ollama start</pre></code> 
 
 ![ss](./screenshoot/1.png)
 
@@ -175,11 +175,9 @@ Berikut ini adalah daftar model
 
 ![ss](./screenshoot/19-import-to-ollama-2.png)
 
-
 #  Demo Video 
 
 1. Video Demo Chatbox dengan satu model LLM menggunakan DeepSeek-R1:1.5B
-
 [![Video Demo Chatbot](URL_GAMBAR_PRATINJAU)](./screenshoot/video-recording-chat-bot.mp4)
 
 2. Video Demo Chatbox dengan tiga model LLM menggunakan DeepSeek-R1:1.5B, distilgpt2, distilgpt2-bandung (model hasil finetuning)
