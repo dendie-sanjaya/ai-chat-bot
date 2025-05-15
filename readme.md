@@ -189,21 +189,44 @@ If the inference server API is accessed via Postman, it will appear as below:
 
 ![ss](./screenshoot/12.python-server.png)
 
+Tentu, ini adalah perbaikan format Markdown untuk bagian \# 13 dan penambahan \# 14 beserta *code snippet* frontend:
+
+
 # 13. Run GGUF Format Model on Ollama Inference Server
 
-The Ollama inference server can import many LLM models, and from the frontend, you can choose which LLM to use. The following is an example of importing a .gguf model:
+The Ollama inference server can import many LLM models, and from the frontend, you can choose which LLM to use. The following is an example of importing a `.gguf` model:
 
 ```
-
 ollama create distilgpt2-bandung -f /mnt/d/ai-chat-bot/tuning/Modelfile
+````
 
-```
+The following is a list of LLM models that have been imported into Ollama:
 
 ![ss](./screenshoot/18-import-to-ollama.png)
 
 The following is a list of LLM models that have been imported into Ollama:
 
 ![ss](./screenshoot/19-import-to-ollama-2.png)
-```
 
-Anda dapat menyalin seluruh teks di atas dengan sekali klik. Setiap *code snippet* tetap berada di dalam tag `<pre><code>` untuk format Markdown yang benar.
+
+# 14. Write Code Frontend
+
+Below is the frontend code for creating the chatbot:
+
+1. Script Chatbot with a single LLM model using DeepSeek-R1:1.5B
+   
+![script frontend chatbot singel model llm](./chatbox-frontend/single-model.html)
+
+![Video Demo Chatbot](./screenshoot/video-recording-chat-bot.mp4)
+
+2. Script  Chatbot with three LLM models using DeepSeek-R1:1.5B, distilgpt2, distilgpt2-bandung (finetuned model)
+   
+![script frontend chatbot multi model llm](./chatbox-frontend/multiple-model.html)
+
+![script frontend chatbot mutli model llm anda mutli server inference](./chatbox-frontend/multiple-model-inferance.html)
+
+![Video Demo Chatbot Multi Model LLM](./screenshoot/video-recording-chat-bot-multiple-model.mp4)
+
+
+
+
