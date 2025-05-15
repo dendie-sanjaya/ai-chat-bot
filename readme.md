@@ -1,14 +1,47 @@
+# Membuat Chactbot AI
+
+Chatbot AI ini  program komputer yang dirancang untuk mensimulasikan percakapan dengan manusia melalui teks atau suara. dengan memanfaatkan teknologi kecerdasan buatan (AI), terutama pemrosesan bahasa alami (NLP) dan machine learning (ML) d, untuk memahami pertanyaan pengguna, memberikan jawaban yang releva dengan backendnya menggunakan  AI-ML-LLM (seperti chatgpt, deepseek, gemini) 
+
+#  Demo Video 
+
+1. Video Demo Chatbox dengan satu model LLM menggunakan DeepSeek-R1:1.5B
+[![Video Demo Chatbot](URL_GAMBAR_PRATINJAU)](./screenshoot/video-recording-chat-bot.mp4)
+
+2. Video Demo Chatbox dengan tiga model LLM menggunakan DeepSeek-R1:1.5B, distilgpt2, distilgpt2-bandung (model hasil finetuning)
+![Video Demo Chatbot Multi Model LLM](./screenshoot/video-recording-chat-bot-multiple-model.mp4)
+
+
+# Daftar Isi
+
+1.  [Machine Learning - LLM](#1-machine-learning---llm)
+2.  [Arsitekur AI Chat](#2-arsitektur-ai-chat)
+3.  [Install Inferance Ollama Platform](#3-install-inferance-ollama-platform)
+4.  [Import model LLM](#4-import-model-llm)
+5.  [Run Deepseek Model LLM](#5-run-deepseek-model-llm)
+6.  [Test Prompt ke Ollama via API](#6-test-prompt-ke-ollama-via-api)
+7.  [Siapkan Dataset](#7-siapkan-dataset)
+8.  [Fine Tuning](#8-fine-tuning)
+9.  [Install Python3](#9-install-python3)
+10. [Download Model LLM](#10-download-model-llm)
+11. [Fine Tuning Training](#11-fine-tuning-training)
+12. [Run Model Hasil Fine Tuning di Inferance Server Python](#12-run-model-hasil-fine-tuning-di-inferance-server-python)
+13. [Run Model format GGUF di Inferance Server Ollama](#13-run-model-format-gguf-di-inferance-server-ollama)
+14. [Demo Video](#-demo-video)
+    1. [Video Demo Chatbox dengan satu model LLM menggunakan DeepSeek-R1:1.5B](#1-video-demo-chatbox-dengan-satu-model-llm-menggunakan-deepseek-r115b)
+    2. [Video Demo Chatbox dengan tiga model LLM menggunakan DeepSeek-R1:1.5B, distilgpt2, distilgpt2-bandung (model hasil finetuning)](#2-video-demo-chatbox-dengan-tiga-model-llm-menggunakan-deepseek-r115b-distilgpt2-distilgpt2-bandung-model-hasil-finetuning)
+
+
+
+
+
 # 1. Machine Learning - LLM 
 
-Machine Learning (ML) adalah cabang dari kecerdasan buatan (AI) yang mempelajari pola dan membuat prediksi 
-berdasarkan data. 
+Machine Learning (ML) adalah cabang dari kecerdasan buatan (AI) yang mempelajari pola dan membuat prediksi berdasarkan data. 
 
-LLM, atau Large Language Model, adalah jenis model ML yang dilatih menggunakan sejumlah besar teks untuk 
-memahami dan menghasilkan bahasa alami. 
+LLM, atau Large Language Model, adalah jenis model ML yang dilatih menggunakan sejumlah besar teks untuk memahami dan menghasilkan bahasa alami. 
 
 Contohnya adalah GPT-3 dan Llama2, Gemini, Copilot, Meta AI,  yang digunakan untuk tugas seperti penerjemahan, penulisan, dan percakapan. 
-LLM bekerja dengan cara mempelajari korelasi dan struktur bahasa dari data pelatihan, 
-sehingga dapat menghasilkan teks yang koheren dan relevan dengan konteks. 
+LLM bekerja dengan cara mempelajari korelasi dan struktur bahasa dari data pelatihan, sehingga dapat menghasilkan teks yang koheren dan relevan dengan konteks. 
 
 LLM, atau Large Language Model, adalah jenis model ML yang dilatih menggunakan sejumlah besar teks untuk memahami dan menghasilkan bahasa alami.
 
@@ -27,21 +60,21 @@ Berikut ini adalah arsitekur AI Chatbot
 
 # 3. Install Inferance Ollama Platform 
 
-Sebagai server AI-MI-LLM dapat menggunakan ollama sebagai inferance AI-MML, ollama akan berperaan sebaga inferance dan menyediakan openAPI yang bisa 
+Sebagai server AI-MI-LLM dapat menggunakan ollama sebagai inferance AI-MML, ollama akan berperan sebaga inferance dan menyediakan openAPI yang bisa 
 di akses frontend 
 
 cara installasi bila melihat disini -> https://github.com/dendie-sanjaya/ai-ml-llm-ollama
 
 Apabila instalasi ollama berhasil dan dapat di run, makaakan tampak sperti ini 
 
-<pre><code>ollama start</code>pre></pre>code> 
+<pre><code>ollama start</pre></code> 
 
 ![ss](./screenshoot/1.png)
 
 
 # 4. Import model LLM
 
-Setelah Ollama dapa melakuan import model LLM yang mengambil langsung dari repository model ollama , dalam contoh kali ini model yg digunakan menggunakan deepseek-r1
+Ollama dapa melakuan import model LLM yang mengambil langsung dari repository model ollama , dalam contoh kali ini model yg digunakan menggunakan deepseek-r1
 
 ![ss](./screenshoot/2.png)
 
@@ -60,7 +93,7 @@ Untuk mengaktifkan Model Deepseek, dapat menggunakan command seperti ini
 
 # 6. Test Prompt ke Ollama via API
 
-Untuk melakukan test untuk memberikan  Prompt AI ke Deepseek dapat lakukan via postman, apabila API nya running hasilnya akan seperti ini 
+Untuk melakukan test untuk memberikan Prompt AI ke Deepseek dapat lakukan via postman, apabila API nya running hasilnya akan seperti ini 
 
 ![ss](./screenshoot/6.png)
 
@@ -68,20 +101,19 @@ Untuk melakukan test untuk memberikan  Prompt AI ke Deepseek dapat lakukan via p
 
 # 7. Siapkan Dataset 
 
-Dataset adalah data yang sudah bersih atau benar, semakin banyak datanya dengan kualitas yang bagus, maka akan semakin baik untuk training machine learning yang akan menghasil jawaban yg baik, berikut ini adalah contoh dalam membuat 
-dataset di format csv untuk keperluan tujuan membuat chatbot
+Dataset adalah data yang sudah bersih atau benar, semakin banyak datanya dengan kualitas yang bagus, maka akan semakin baik untuk training machine learning yang akan menghasil jawaban yg baik, berikut ini adalah contoh dalam membuat dataset di format csv untuk keperluan tujuan membuat chatbot
 
 ![ss](./screenshoot/8.png)
 
 
 # 8. Fine Tuning 
 
-Fine tuning adalah proses training mechine learning dengan memberikan pengetahuan baru yang hasil akan digabungkan dengan model induk nya 
+Fine tuning adalah proses training mechine learning dengan memberikan pengetahuan baru yang hasil nya akan digabungkan dengan model llm induk nya 
 
 
 # 9. Install Python3 
 
-Untuk melakukan Fine tuning adalah proses training mechine learning dengan memberikan pengetahuan baru yang hasil akan digabungkan dengan model induk nya 
+Untuk melakukan Fine tuning adalah proses training mechine learning dengan memberikan pengetahuan baru yang hasil nya akan digabungkan dengan model induk nya 
 
 <pre><code>apt install python3.10-venv
 python3 -m venv venv
@@ -97,7 +129,7 @@ Python 3.10.12</code></pre>
 
 # 10. Download Model LLM  
 
-Cari model dengan nama yang mirip dengan model LLM yg akan menjadi induk model fine-tune, dan perhatikan ekstensi filenya (.gguf) ,  misalkan Hugging Face Hub  Platform Hugging Face Hub (https://huggingface.co/) adalah sumber utama untuk model LLM. Seringkali, komunitas membuat dan mengunggah versi model dalam format GGUF, sebagai contoh  model DeepSeek-R1:1.5B, distilgpt2  
+Cari model dengan nama yang mirip dengan model LLM yg akan menjadi induk model fine-tune, dan perhatikan ekstensi filenya (.gguf),  misalkan Hugging Face Hub  Platform Hugging Face Hub (https://huggingface.co/) adalah sumber utama untuk model LLM. Seringkali, komunitas membuat dan mengunggah versi model dalam format GGUF, sebagai contoh  model DeepSeek-R1:1.5B, distilgpt2  
 
 ![ss](./screenshoot/9.png)
 
@@ -106,8 +138,8 @@ Cari model dengan nama yang mirip dengan model LLM yg akan menjadi induk model f
 
 # 11. Fine Tuning Training 
 
-Lakukan finetuning dengan menggabungkan model LLM induk sebagai contoh di kode program ini menggunakan distilgpt2.gguf dan menggunakan dataset file csv (seperti di contoh ini menggunakan dataset-bandung
-![Dataset Kota Bandung](./dataset/dataset-bandung.csv)
+Lakukan finetuning dengan menggabungkan model LLM induk sebagai contoh di kode program ini menggunakan distilgpt2.gguf dan menggunakan dataset file csv, seperti di contoh ini menggunakan dataset-bandung
+![Dataset Kota Bandung](./dataset/dataset-bandung.csv) 
 
 File script fine-tuning nya dapat diakses di ![distilgpt2-finetuning.py](./fine-tuning/distilgpt2-finetuning.py)
 
@@ -115,95 +147,40 @@ File script fine-tuning nya dapat diakses di ![distilgpt2-finetuning.py](./fine-
 
 ![ss](./screenshoot/14.png)
 
-Hasil dari proses finetuning ini akan menghasil sebuah model baru dengan format safetensors (format model LLM dari Hugging Face)
+Hasil dari proses finetuning ini akan menghasilkan sebuah model baru dengan format safetensors (format model LLM dari Hugging Face)
 
 
+# 12. Run Model Hasil Fine Tuning di Inferance Server Python
 
-#  Demo Video 
+Server inference adalah adalah sebuah server yg menjadi penghubung antar frontend untuk memberikan prompt atau pertanyaan dan menampikan jawaban, server inference biasanya sudah dilengkapi 
+dengan JSON API untuk sebagai cara untuk bertukar data atau informasi
 
-1. Video Demo Chatbox dengan satu model LLM menggunakan DeepSeek-R1:1.5B
+Pada contoh ini yang digunakan adalah membuat server inference menggunakan python, install lebih dulu depedensinya  
 
-[![Teks Alternatif untuk Gambar](URL_GAMBAR_PRATINJAU)](./screenshoot/video-recording-chat-bot.mp4)
-
-3. Video Demo Chatbox dengan tiga model LLM menggunakan DeepSeek-R1:1.5B, distilgpt2, distilgpt2-bandung (model hasil finetuning)
-![ss](./screenshoot/video-recording-chat-bot-multiple-model)
-
-
-
-
-
-
-
-
-
-
------------------------------
-python3 convert_hf_to_gguf.py --model-type gpt2 --model-dir /mnt/d/ai-chat-bot/tuning/distilgpt2-bandung.pth --outfile /mnt/d/ai-chat-bot/tuning/distilgpt2-bandung.gguf
-
-python3 convert_hf_to_gguf_update.py --model-type gpt2 --model-dir /mnt/d/ai-chat-bot/tuning/distilgpt2-bandung-generation-final --outfile /mnt/d/ai-chat-bot/tuning/distilgpt2-bandung.gguf
-
-
-convert pth to huging face 
----------------------------
-pip install torch transformers optimum
-python3 convert_pth_to_hf.py
-
-
-convert to hf go gguf 
-----------------------
-cd /mnt/d/ai-chat-bot/tuning/llama.cpp-master
-/mnt/d/ai-chat-bot/tuning/llama.cpp-master# 
-python3 convert_hf_to_gguf.py ../distilgpt2-hf --outfile ../distilgpt2-bandung.gguf --model gpt2
-
-import gguf ke ollama 
-----------------------
-ollama create distilgpt2-bandung -f /mnt/d/ai-chat-bot/tuning/Modelfile
-
-
-menggunakan pythonserver 
---------------------------
-pip install llama-cpp-python
+<pre><code>pip install llama-cpp-python
 pip install fastapi
-pip install uvicorn
+pip install uvicorn</code></pre> 
+
+Server Inference Python dapat membaca model format huge face
+<pre><code>uvicorn server-inference-read-hf:app --reload</code></pre> 
+
+Server Inference Python dapat membaca model fromat gguf
+<pre><code>uvicorn server-inference-gguf:app --reload</code></pre> 
+
+Apabila API server inference di akses via Postmant akan tampak seperti dibawah ini 
+
+![ss](./screenshoot/12. python-server.png)
 
 
-uvicorn server-inference-read-hf:app --reload
+# 13. Run Model format GGUF di Inferance Server Ollama
 
+Server inference Ollama dapat di import banyak model LLM, dan dari sisi frontend dapat memilih  untuk untuk menggunakan LLM yang mana, berikut ini adalah contoh import model.gguf 
 
+<pre><code>ollama create distilgpt2-bandung -f /mnt/d/ai-chat-bot/tuning/Modelfile</code></pre> 
 
+![ss](./screenshoot/18-import-to-ollama.png)
 
+Berikut ini adalah daftar model 
 
-
-
-
-
-
---------------------------------------
-di buat 
----------------------------------------
-
-        Repositori llama.cpp: Proyek llama.cpp (https://github.com/ggerganov/llama.cpp) adalah alat populer untuk bekerja dengan model LLM di CPU. Repositori ini sering menyediakan skrip dan bahkan file GGUF yang sudah dikonversi untuk berbagai model.
-
-Tips saat mencari file GGUF:
-
-    Cari model dengan nama yang mirip dengan model yang Anda fine-tune, dan perhatikan ekstensi filenya (.gguf).
-    Perhatikan informasi tentang kuantisasi (misalnya, Q4_K_M, Q8_0). Kuantisasi yang lebih rendah menghasilkan ukuran file yang lebih kecil tetapi mungkin dengan sedikit penurunan kualitas. Pilih yang sesuai dengan kebutuhan dan sumber daya Anda.
-    Baca deskripsi dan komentar untuk memastikan file GGUF tersebut memang berasal dari model yang benar daan berfungsi dengan baik.
-
-
-
-
-Clone Repositori llama.cpp (jika belum):
-Buka terminal Anda dan jalankan perintah berikut untuk mengunduh kode sumber llama.cpp dari GitHub:
-Bash
-
-
-Compile LLama CPP
-------------------
-git clone https://github.com/ggerganov/llama.cpp
-cd llama.cpp-master
-mkdir build
-cd build
-cmake ../
-make
+![ss](./screenshoot/19-import-to-ollama-2.png)
 
