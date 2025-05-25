@@ -8,7 +8,7 @@ app = FastAPI()
 
 # Ganti dengan jalur sebenarnya ke model GGUF Anda
 # MODEL_PATH = "deepseek-r11.5b.gguf"
-MODEL_PATH = "/mnt/d/ai-chat-bot/inferance-server/distilgpt2-bandung.gguf"
+MODEL_PATH = "/mnt/d/ai/ai-chat-bot/inferance-server/distilgpt2-bandung.gguf"
 
 try:
     llm = Llama(model_path=MODEL_PATH)

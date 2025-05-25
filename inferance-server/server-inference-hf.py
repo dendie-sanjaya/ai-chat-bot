@@ -16,7 +16,7 @@ app.add_middleware(
 )
 
 # --- Konfigurasi Model Hugging Face ---
-MODEL_NAME = "/mnt/d/ai-chat-bot/fine-tuning/distilgpt2-bandung-hf-final/"  # Ganti dengan nama model Hugging Face yang ingin Anda gunakan
+MODEL_NAME = "/mnt/d/ai/ai-chat-bot/fine-tuning/distilgpt2-bandung-hf-final/"  # Ganti dengan nama model Hugging Face yang ingin Anda gunakan
 TOKENIZER = None
 MODEL = None
 

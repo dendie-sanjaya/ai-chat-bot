@@ -173,7 +173,7 @@ The Python Inference Server can read models in Hugging Face format:
 
 ```
 
-uvicorn server-inference-read-hf:app --reload
+uvicorn server-inference-hf:app --reload
 
 ```
 
