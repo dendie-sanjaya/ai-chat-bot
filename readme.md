@@ -7,8 +7,13 @@ This AI Chatbot is a computer program designed to simulate conversations with hu
 1. Video Demo of a Chatbot with a single LLM model using DeepSeek-R1:1.5B
 [![Video Demo Chatbot](URL_GAMBAR_PRATINJAU)](./screenshoot/video-recording-chat-bot.mp4)
 
+![ss](./screenshoot/chatbot-1.png)
+
 2. Video Demo of a Chatbot with three LLM models using DeepSeek-R1:1.5B, distilgpt2, distilgpt2-bandung (finetuned model)
 ![Video Demo Chatbot Multi Model LLM](./screenshoot/video-recording-chat-bot-multiple-model.mp4)
+
+![ss](./screenshoot/chatbot-2.png)
+
 
 # Table of Contents
 
